@@ -38,6 +38,12 @@ if (process.argv.includes("-help") || process.argv.includes("-h")) {
 
 const args = parseArgs(process.argv.slice(2), schema);
 
+if (!args.username) {
+  console.error("Error: -username is required.");
+  console.log(buildHelp("node tools/generate-repo.mjs [options]", schema));
+  process.exit(1);
+}
+
 const langs = await fetchTopLanguages(
   args.username,
   args.exclude_repo ? args.exclude_repo.split(",") : [],
